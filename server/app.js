@@ -18,7 +18,7 @@ var app = express();
 const knex = Knex(knexConfig.development); // initialize knex itself which knows how to speak to a DB
 Model.knex(knex); // initialize objection.js
 
-console.log('Server running!')
+console.log("Server running on port 3000!")
 
 // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
