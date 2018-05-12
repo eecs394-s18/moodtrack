@@ -1,5 +1,6 @@
 client/node_modules/**/*
 client/.expo/**/*
 server/node_modules/**/*
+/node_modules
 .vscode/
 .expo/**/*
