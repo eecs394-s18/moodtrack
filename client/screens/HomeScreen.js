@@ -15,7 +15,7 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import { Body, Button, Segment, Header, Title, Container, H1 } from 'native-base';
+import { Body, Button, Segment, Header, Title, Container, H1, H2, H3 } from 'native-base';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -59,10 +59,12 @@ export default class HomeScreen extends React.Component {
           </Segment>
 
           <H1 style={styles.heading}>How are you feeling today?</H1>
+          <H3 style={styles.subheading}>(1 is bad, 5 is great)</H3>
           <Slider
             style={styles.slider} value={this.state.mood}
             maximumValue={5} minimumValue={1} step={1} onValueChange={(val) => this.setState({mood:val})}>
           </Slider>
+          <H3 style={styles.mood}>Mood: {this.state.mood}</H3>
         </View>
       </Container>
     );
@@ -97,6 +99,13 @@ const styles = StyleSheet.create({
   heading: {
     marginLeft: 20,
     marginTop: 20,
+  },
+  mood: {
+    textAlign: 'center',
+  },
+  subheading: {
+    marginLeft: 20,
+    marginTop: 5,
   }
 
 });
