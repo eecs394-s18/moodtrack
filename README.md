@@ -9,7 +9,6 @@ $ npm install // or yarn install
 // server dependancies
 $ cd server
 $ npm install // or yarn install
-$ npm install -g nodemon // auto-server restart package
 
 ```
 
@@ -21,7 +20,9 @@ $ exp start
 
 // run server
 $ cd server
-$ nodemon app.js
+$ npm run start // will start server
+// OR
+$ npm run watch // will run watch script using nodemon. Will livereload server on every save.
 ```
 
 

@@ -3,7 +3,7 @@ var router = express.Router();
 var Moods = require("../models/models").Moods;
 
 
-/* GET users listing. */
+/* POST mood. */
 router.post('/', function(req, res, next) {
 
   Moods.query()
