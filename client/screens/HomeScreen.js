@@ -15,14 +15,16 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import { Body, Button, Segment, Header, Title, Container } from 'native-base';
+import { Body, Button, Segment, Header, Title, Container, H1, H2, H3 } from 'native-base';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pickerValue: "Job1",
+      activeJob: "Nurse",
       activeLocation: "North",
+      activeShift: "Day",
+      mood: 3,
     };
   }
   static navigationOptions = {
@@ -31,53 +33,79 @@ export default class HomeScreen extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container style={styles.container}>
         <Header>
           <Body>
             <Title>MoodTrack</Title>
           </Body>
         </Header>
-        <Grid>
-          <Row>
-            <Picker
-              selectedValue={this.state.pickerValue}
-              style={{ height: 50, width: 100 }}
-              onValueChange={this.setPickerValue}>
-              <Picker.Item label="Job1" value="Job1" />
-              <Picker.Item label="Job2" value="Job2" />
-              <Picker.Item label="Job3" value="Job3" />
-              <Picker.Item label="Job4" value="Job4" />
-              <Picker.Item label="Job5" value="Job5" />
-            </Picker>
-          </Row>
-          <Row>
-            <Segment>
-              <Button active={this.state.activeLocation === "North"} first onPress={this.setActiveLocationNorth}><Text>North</Text></Button>
-              <Button active={this.state.activeLocation === "South"} last onPress={this.setActiveLocationSouth}><Text>South</Text></Button>
-            </Segment>
-          </Row>
-        </Grid>
+        <View /*style={{flex: 1, justifyContent: 'center'}}*/>
+          <H1 style={styles.heading}>Position:</H1>
+          <Segment style={styles.segment}>
+            <Button active={this.state.activeJob === "Nurse"} first onPress={() => {this.setActiveJob("Nurse")}}><Text>Nurse</Text></Button>
+            <Button active={this.state.activeJob === "CNA"} onPress={() => {this.setActiveJob("CNA")}}><Text>CNA</Text></Button>
+            <Button active={this.state.activeJob === "Fellow"} onPress={() => {this.setActiveJob("Fellow")}}><Text>Fellow</Text></Button>
+            <Button active={this.state.activeJob === "Attending"} last onPress={() => {this.setActiveJob("Attending")}}><Text>Attending</Text></Button>
+          </Segment>
+          <H1 style={styles.heading}>Location:</H1>
+          <Segment style={styles.segment}>
+            <Button active={this.state.activeLocation === "North"} first onPress={() => {this.setActiveLocation("North")}}><Text>North</Text></Button>
+            <Button active={this.state.activeLocation === "South"} last onPress={() => {this.setActiveLocation("South")}}><Text>South</Text></Button>
+          </Segment>
+          <H1 style={styles.heading}>Shift:</H1>
+          <Segment style={styles.segment}>
+            <Button active={this.state.activeShift === "Day"} first onPress={() => {this.setActiveShift("Day")}}><Text>Day</Text></Button>
+            <Button active={this.state.activeShift === "Night"} last onPress={() => {this.setActiveShift("Night")}}><Text>Night</Text></Button>
+          </Segment>
+
+          <H1 style={styles.heading}>How are you feeling today?</H1>
+          <H3 style={styles.subheading}>(1 is bad, 5 is great)</H3>
+          <Slider
+            style={styles.slider} value={this.state.mood}
+            maximumValue={5} minimumValue={1} step={1} onValueChange={(val) => this.setState({mood:val})}>
+          </Slider>
+          <H3 style={styles.mood}>Mood: {this.state.mood}</H3>
+        </View>
       </Container>
     );
   }
-  setActiveLocationNorth = () => {
+  setActiveLocation = (location) => {
     this.setState({
-      activeLocation: "North"
+      activeLocation: location
     })
   }
-
-  setActiveLocationSouth = () => {
+  setActiveJob = (job) => {
     this.setState({
-      activeLocation: "South"
+      activeJob: job
     })
   }
-
-  setPickerValue = (itemValue, itemIndex) => {
+  setActiveShift = (shift) => {
     this.setState({
-      pickerValue: itemValue
+      activeShift: shift
     })
   }
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+  },
+  slider: {
+    margin: 25,
+  },
+  segment: {
+    backgroundColor: '#fff',
+  },
+  heading: {
+    marginLeft: 20,
+    marginTop: 20,
+  },
+  mood: {
+    textAlign: 'center',
+  },
+  subheading: {
+    marginLeft: 20,
+    marginTop: 5,
+  }
+
 });
