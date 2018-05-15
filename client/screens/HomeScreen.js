@@ -65,6 +65,9 @@ export default class HomeScreen extends React.Component {
             maximumValue={5} minimumValue={1} step={1} onValueChange={(val) => this.setState({mood:val})}>
           </Slider>
           <H3 style={styles.mood}>Mood: {this.state.mood}</H3>
+          <Button block disabled={false} style={styles.button}>
+            <Text>Submit</Text>
+          </Button>
         </View>
       </Container>
     );
@@ -106,6 +109,9 @@ const styles = StyleSheet.create({
   subheading: {
     marginLeft: 20,
     marginTop: 5,
+  },
+  button: {
+    margin: 25
   }
 
 });

@@ -17,6 +17,10 @@ router.post('/', function(req, res, next) {
       .then(resp => {
         res.sendStatus(200);
       })
+      .catch(err => {
+        console.error(err);
+        res.sendStatus(500);
+      })
 
 });
 
