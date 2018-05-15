@@ -4,3 +4,4 @@ server/node_modules/**/*
 /node_modules
 .vscode/
 .expo/**/*
+*/package-lock.json
