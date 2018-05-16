@@ -13,7 +13,7 @@ import {
 import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 
-import { Button } from 'native-base';
+import { Button, Spinner } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -23,16 +23,18 @@ export default class MoodButton extends React.Component {
   }
 
   renderText(submitted) {
+    console.log("submitted is ", submitted)
     switch(submitted) {
       case 0:
-        return <Button block success>Submit</Button>;
+        return <Button block success><Text>Submit</Text></Button>;
       case 1:
-        return <Button disabled> <Spinner color='blue' /> </Button>
+        console.log("returning spinner")
+        return <Spinner color='blue' />;
       case 2:
-        return <Button disabled>Already Submitted!</Button>;
+        return <Button block disabled><Text>Already Submitted!</Text></Button>;
       default:
-        return <Button block warning>Submit</Button>;
-    }
+        return <Button block success><Text>Submit</Text></Button>;
+      }
   }
 
   render() {
@@ -41,7 +43,3 @@ export default class MoodButton extends React.Component {
     );
   }
 }
- 
-
-const styles = StyleSheet.create({
-});
