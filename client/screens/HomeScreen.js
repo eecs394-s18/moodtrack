@@ -16,6 +16,7 @@ import { MonoText } from '../components/StyledText';
 
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { Body, Button, Segment, Header, Title, Container, H1, H2, H3 } from 'native-base';
+import MoodButton from '../components/MoodButton';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -25,6 +26,7 @@ export default class HomeScreen extends React.Component {
       activeLocation: "North",
       activeShift: "Day",
       mood: 3,
+      submitted: 0,
     };
   }
   static navigationOptions = {
@@ -65,9 +67,8 @@ export default class HomeScreen extends React.Component {
             maximumValue={5} minimumValue={1} step={1} onValueChange={(val) => this.setState({mood:val})}>
           </Slider>
           <H3 style={styles.mood}>Mood: {this.state.mood}</H3>
-          <Button block disabled={false} style={styles.button}>
-            <Text>Submit</Text>
-          </Button>
+
+          <MoodButton submitted={this.state.submitted}> </MoodButton>
         </View>
       </Container>
     );
