@@ -3,7 +3,7 @@ var router = express.Router();
 var Moods = require("../models/models").Moods;
 
 
-/* GET users listing. */
+/* POST mood. */
 router.post('/', function(req, res, next) {
 
   Moods.query()
@@ -16,6 +16,10 @@ router.post('/', function(req, res, next) {
       })
       .then(resp => {
         res.sendStatus(200);
+      })
+      .catch(err => {
+        console.error(err);
+        res.sendStatus(500);
       })
 
 });
