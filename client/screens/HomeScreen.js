@@ -1,6 +1,8 @@
 import React from 'react';
 import {
   Image,
+  Keyboard,
+  KeyboardAvoidingView,
   Picker,
   Platform,
   ScrollView,
@@ -15,10 +17,20 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 
 import { Col, Grid, Row } from 'react-native-easy-grid';
-import { Body, Button, Segment, Header, Title, Container, H1, H2, H3 } from 'native-base';
+import { Body, Button, Segment, Header, Title, Container, Content, Form, Textarea, H1, H2, H3 } from 'native-base';
 import MoodButton from '../components/MoodButton';
+/*
+Go to .node_modules/react-native-emoji/index.js and add
+import PropType from 'prop-type';
+and change line 8 to
+name: PropTypes.string.isRequired,
+*/
+//Emoji Data Table: https://unicodey.com/emoji-data/table.htm
+import Emoji from 'react-native-emoji';
+import {MediaQuery, ResponsiveComponent, ResponsiveStyleSheet} from "react-native-responsive-ui";
 
-export default class HomeScreen extends React.Component {
+
+export default class HomeScreen extends ResponsiveComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -34,42 +46,59 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
+    const {style} = this;
     return (
-      <Container style={styles.container}>
+      <Container style={constStyles.container}>
         <Header>
           <Body>
-            <Title>MoodTrack</Title>
+            <Title>IGNITE MoodTrack</Title>
           </Body>
         </Header>
-        <View /*style={{flex: 1, justifyContent: 'center'}}*/>
-          <H1 style={styles.heading}>Position:</H1>
-          <Segment style={styles.segment}>
-            <Button active={this.state.activeJob === "Nurse"} first onPress={() => {this.setActiveJob("Nurse")}}><Text>Nurse</Text></Button>
-            <Button active={this.state.activeJob === "CNA"} onPress={() => {this.setActiveJob("CNA")}}><Text>CNA</Text></Button>
-            <Button active={this.state.activeJob === "Fellow"} onPress={() => {this.setActiveJob("Fellow")}}><Text>Fellow</Text></Button>
-            <Button active={this.state.activeJob === "Attending"} last onPress={() => {this.setActiveJob("Attending")}}><Text>Attending</Text></Button>
-          </Segment>
-          <H1 style={styles.heading}>Location:</H1>
-          <Segment style={styles.segment}>
-            <Button active={this.state.activeLocation === "North"} first onPress={() => {this.setActiveLocation("North")}}><Text>North</Text></Button>
-            <Button active={this.state.activeLocation === "South"} last onPress={() => {this.setActiveLocation("South")}}><Text>South</Text></Button>
-          </Segment>
-          <H1 style={styles.heading}>Shift:</H1>
-          <Segment style={styles.segment}>
-            <Button active={this.state.activeShift === "Day"} first onPress={() => {this.setActiveShift("Day")}}><Text>Day</Text></Button>
-            <Button active={this.state.activeShift === "Night"} last onPress={() => {this.setActiveShift("Night")}}><Text>Night</Text></Button>
-          </Segment>
+        //Try using KeyboardAvoidingView to push the text box into view. May be buggy.
+        <ScrollView contentContainerStyle={constStyles.view} keyboardDismissMode="interactive">
+            <View style={style.subview}>
+              <H1>Position</H1>
+              <Segment style={style.segment}>
+                <Button active={this.state.activeJob === "Nurse"} first onPress={() => {this.setActiveJob("Nurse")}}><Text>Nurse</Text></Button>
+                <Button active={this.state.activeJob === "CNA"} onPress={() => {this.setActiveJob("CNA")}}><Text>CNA</Text></Button>
+                <Button active={this.state.activeJob === "Fellow"} onPress={() => {this.setActiveJob("Fellow")}}><Text>Fellow</Text></Button>
+                <Button active={this.state.activeJob === "Attending"} last onPress={() => {this.setActiveJob("Attending")}}><Text>Attending</Text></Button>
+              </Segment>
+            </View>
 
-          <H1 style={styles.heading}>How are you feeling today?</H1>
-          <H3 style={styles.subheading}>(1 is bad, 5 is great)</H3>
-          <Slider
-            style={styles.slider} value={this.state.mood}
-            maximumValue={5} minimumValue={1} step={1} onValueChange={(val) => this.setState({mood:val})}>
-          </Slider>
-          <H3 style={styles.mood}>Mood: {this.state.mood}</H3>
+            <View style={style.subview}>
+              <H1>Location</H1>
+              <Segment style={style.segment}>
+                <Button active={this.state.activeLocation === "North"} first onPress={() => {this.setActiveLocation("North")}}><Text>North</Text></Button>
+                <Button active={this.state.activeLocation === "South"} last onPress={() => {this.setActiveLocation("South")}}><Text>South</Text></Button>
+              </Segment>
+            </View>
 
-          <MoodButton submitted={this.state.submitted}> </MoodButton>
-        </View>
+            <View style={style.subview}>
+              <H1>Shift</H1>
+              <Segment style={style.segment}>
+                <Button active={this.state.activeShift === "Day"} first onPress={() => {this.setActiveShift("Day")}}><Text>Day</Text></Button>
+                <Button active={this.state.activeShift === "Night"} last onPress={() => {this.setActiveShift("Night")}}><Text>Night</Text></Button>
+              </Segment>
+            </View>
+
+            <H1>How are you feeling today?</H1>
+            <View style={{flexDirection:'row'}}>
+              <Text style={constStyles.emoji}><Emoji name="disappointed"/></Text>
+              <Slider
+                style={constStyles.slider} value={this.state.mood}
+                minimumValue={1} maximumValue={5} onSlidingComplete={(val) => this.setState({mood:val})}>
+              </Slider>
+              <Text style={constStyles.emoji}><Emoji name="smile"/></Text>
+            </View>
+            <View style={{alignSelf:'stretch'}}>
+              <H1>Anything else?</H1>
+              <Form>
+                <Textarea rowSpan={5} bordered placeholder="Optional" />
+              </Form>
+            </View>
+        </ScrollView>
+        <MoodButton submitted={this.state.submitted}></MoodButton>
       </Container>
     );
   }
@@ -88,31 +117,53 @@ export default class HomeScreen extends React.Component {
       activeShift: shift
     })
   }
+  get style() {
+    return ResponsiveStyleSheet.select([
+    {
+      query: { orientation: "landscape" },
+      style: {
+        subview:{
+          flexDirection:'row'
+        },
+        segment:{
+          flex:1,
+          justifyContent:'flex-end',
+          backgroundColor:'#fff'
+        }
+      }
+    },
+    {
+      query: { orientation: "portrait" },
+      style: {
+        subview:{
+          flexDirection:'column'
+        },
+        segment:{
+          justifyContent:'flex-start',
+          backgroundColor:'#fff'
+        }
+      }
+    }
+    ]);
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
+const constStyles = StyleSheet.create({
+  container:{
+    backgroundColor:'#fff'
+  },
+  emoji: {
+    fontSize: 50,
+    marginVertical: 20,
+    marginHorizontal: 10
   },
   slider: {
-    margin: 25,
+    flex: 1,
+    marginTop: 30,
+    marginBottom: 30
   },
-  segment: {
-    backgroundColor: '#fff',
-  },
-  heading: {
-    marginLeft: 20,
-    marginTop: 20,
-  },
-  mood: {
-    textAlign: 'center',
-  },
-  subheading: {
-    marginLeft: 20,
-    marginTop: 5,
-  },
-  button: {
-    margin: 25
+  view: {
+    margin:25,
+    paddingBottom:50
   }
-
 });
