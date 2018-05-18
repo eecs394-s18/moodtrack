@@ -19,6 +19,9 @@ import { MonoText } from '../components/StyledText';
 import { Col, Grid, Row } from 'react-native-easy-grid';
 import { Body, Button, Segment, Header, Title, Container, Content, Form, Textarea, H1, H2, H3 } from 'native-base';
 import MoodButton from '../components/MoodButton';
+
+import Moment from 'moment';
+import axios from 'axios';
 /*
 Go to .node_modules/react-native-emoji/index.js and add
 import PropTypes from 'prop-types';
@@ -39,11 +42,48 @@ export default class HomeScreen extends ResponsiveComponent {
       activeShift: "Day",
       mood: 3,
       submitted: 0,
+      comment: "",
+      deviceId: 1, // hardcoded for now
+      lastSubmitted: 0
     };
+    this.onSubmit = this.onSubmit.bind(this);
   }
   static navigationOptions = {
     header: null,
   };
+
+  onSubmit(event) {
+    let data =  JSON.stringify({
+      device_id: this.state.deviceId,
+      user_type: this.state.activeJob,
+      location: this.state.activeLocation,
+      timestamp: Moment.utc(),
+      mood: this.state.mood,
+      comment: this.state.comment
+    })
+
+    this.setState({submitted: 1}) // loading circle appears
+    // axios.post("http://localhost:3000/moods/write", {}, data)
+    fetch("https://localhost:3000/moods/write", {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: data
+    })
+    .then(res => {
+      console.log(res, "Mood successfully submitted.");
+      this.setState({
+        submitted: 0,
+        lastSubmitted: Moment.utc()
+      })
+    })
+    .catch(err => {
+      console.error(err, "Mood submission failed.")
+      this.setState({submitted: 0})
+    })
+  }
 
   render() {
     const {style} = this;
@@ -98,7 +138,7 @@ export default class HomeScreen extends ResponsiveComponent {
               </Form>
             </View>
         </ScrollView>
-        <MoodButton submitted={this.state.submitted}></MoodButton>
+        <MoodButton submitted={this.state.submitted} onSubmit={this.onSubmit}></MoodButton>
       </Container>
     );
   }
