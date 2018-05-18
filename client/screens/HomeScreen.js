@@ -21,7 +21,7 @@ import { Body, Button, Segment, Header, Title, Container, Content, Form, Textare
 import MoodButton from '../components/MoodButton';
 /*
 Go to .node_modules/react-native-emoji/index.js and add
-import PropType from 'prop-type';
+import PropTypes from 'prop-types';
 and change line 8 to
 name: PropTypes.string.isRequired,
 */

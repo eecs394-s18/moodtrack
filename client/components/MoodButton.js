@@ -23,12 +23,12 @@ export default class MoodButton extends React.Component {
   }
 
   renderText(submitted) {
-    console.log("submitted is ", submitted)
+    // console.log("submitted is ", submitted)
     switch(submitted) {
       case 0:
         return <Button full large primary style={styles.button}><Text>Submit</Text></Button>;
       case 1:
-        console.log("returning spinner")
+        // console.log("returning spinner")
         return <Spinner color='blue' />;
       case 2:
         return <Button full large disabled style={styles.button}><Text>Already Submitted!</Text></Button>;
