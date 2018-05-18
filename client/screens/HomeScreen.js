@@ -45,8 +45,9 @@ export default class HomeScreen extends ResponsiveComponent {
     header: null,
   };
 
-  render() {
+render() {
     const {style} = this;
+    const emojis = ["smile", "laughing", "wink", "confused", "disappointed"];
     return (
       <Container style={constStyles.container}>
         <Header>
@@ -83,14 +84,28 @@ export default class HomeScreen extends ResponsiveComponent {
             </View>
 
             <H1>How are you feeling today?</H1>
-            <View style={{flexDirection:'row'}}>
-              <Text style={constStyles.emoji}><Emoji name="disappointed"/></Text>
+            
+            
+            <View style={{flexDirection:'row'}}> 
+              <Text style={constStyles.emoji}><Emoji name={emojis[emojis.length-1]}/></Text>
               <Slider
                 style={constStyles.slider} value={this.state.mood}
                 minimumValue={1} maximumValue={5} onSlidingComplete={(val) => this.setState({mood:val})}>
               </Slider>
-              <Text style={constStyles.emoji}><Emoji name="smile"/></Text>
+              <Text style={constStyles.emoji}><Emoji name={emojis[0]}/></Text>  
             </View>
+            
+
+          <View style={{justifyContent: 'center'}}> 
+             
+             <Text style={constStyles.emoji}><Emoji name={emojis[Math.floor(this.state.mood) - 1]}/></Text>
+          </View>
+
+
+
+
+
+
             <View style={{alignSelf:'stretch'}}>
               <H1>Anything else?</H1>
               <Form>
