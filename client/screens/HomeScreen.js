@@ -12,7 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { WebBrowser } from 'expo';
+import { WebBrowser, Constants } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
@@ -21,7 +21,8 @@ import { Body, Button, Segment, Header, Title, Container, Content, Form, Textare
 import MoodButton from '../components/MoodButton';
 
 import Moment from 'moment';
-import axios from 'axios';
+import urls from '../constants/ngrokUrls'
+
 /*
 Go to .node_modules/react-native-emoji/index.js and add
 import PropTypes from 'prop-types';
@@ -43,7 +44,6 @@ export default class HomeScreen extends ResponsiveComponent {
       mood: 3,
       submitted: 0,
       comment: "",
-      deviceId: 1, // hardcoded for now
       lastSubmitted: 0
     };
     this.onSubmit = this.onSubmit.bind(this);
@@ -54,17 +54,20 @@ export default class HomeScreen extends ResponsiveComponent {
 
   onSubmit(event) {
     let data =  JSON.stringify({
-      device_id: this.state.deviceId,
+      device_id: Constants.deviceId,
       user_type: this.state.activeJob,
       location: this.state.activeLocation,
+      shift: this.state.activeShift,
       timestamp: Moment.utc(),
       mood: this.state.mood,
       comment: this.state.comment
     })
 
+    console.log(data) // debug
+
     this.setState({submitted: 1}) // loading circle appears
     // axios.post("http://localhost:3000/moods/write", {}, data)
-    fetch("https://localhost:3000/moods/write", {
+    fetch(`${urls[1]}/moods/write`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -126,15 +129,15 @@ export default class HomeScreen extends ResponsiveComponent {
             <View style={{flexDirection:'row'}}>
               <Text style={constStyles.emoji}><Emoji name="disappointed"/></Text>
               <Slider
-                style={constStyles.slider} value={this.state.mood}
-                minimumValue={1} maximumValue={5} onSlidingComplete={(val) => this.setState({mood:val})}>
+                style={constStyles.slider} value={this.state.mood} step={1}
+                minimumValue={0} maximumValue={100} onSlidingComplete={(val) => this.setState({mood:val})}>
               </Slider>
               <Text style={constStyles.emoji}><Emoji name="smile"/></Text>
             </View>
             <View style={{alignSelf:'stretch'}}>
               <H1>Anything else?</H1>
               <Form>
-                <Textarea rowSpan={5} bordered placeholder="Optional" />
+                <Textarea rowSpan={5} bordered placeholder="Optional" onChangeText={(text) => this.setState({comment:text})}/>
               </Form>
             </View>
         </ScrollView>

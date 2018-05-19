@@ -22,7 +22,7 @@ $ exp start
 $ cd server
 $ npm run start // will start server
 // OR
-$ npm run watch // will run watch script using nodemon. Will livereload server on every save.
+$ npm run dev // will run watch script using nodemon. Will livereload server on every save.
 ```
 
 

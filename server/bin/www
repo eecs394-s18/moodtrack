@@ -8,8 +8,8 @@ var app = require('../app');
 var debug = require('debug')('server:server');
 var http = require('http');
 
-var https = require('https'); // added this
-var fs = require('fs');
+// var https = require('https'); // added this
+// var fs = require('fs');
 
 /**
  * Get port from environment and store in Express.
@@ -22,19 +22,19 @@ app.set('port', port);
  * Create HTTP server.
  */
 
-// var server = http.createServer(app);
+var server = http.createServer(app);
 
 // OR
 // added this
 /**
  * Create HTTPS server.
  */
-var server = https.createServer({
-  key: fs.readFileSync(__dirname + '/../config/server.key'),
-  cert: fs.readFileSync(__dirname + '/../config/server.cert'),
-  requestCert: true,
-  rejectUnauthorized: false
-}, app)
+// var server = https.createServer({
+//   key: fs.readFileSync(__dirname + '/../config/server.key'),
+//   cert: fs.readFileSync(__dirname + '/../config/server.cert'),
+//   requestCert: true,
+//   rejectUnauthorized: false
+// }, app)
 // .listen(3000, function () {
 //   console.log('Example app listening on port 3000! Go to https://localhost:3000/')
 // })

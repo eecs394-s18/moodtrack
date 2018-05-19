@@ -11,6 +11,7 @@ router.post('/write', function(req, res, next) {
         device_id: req.body.device_id,
         user_type: req.body.user_type,
         location: req.body.location,
+        shift: req.body.shift,
         timestamp: req.body.timestamp,
         mood: req.body.mood,
         comment: req.body.comment
