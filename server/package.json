@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "watch": "nodemon ./bin/www",
     "tunnel": "./ngrok http 3000 & node getNgrokUrl.js",
-    "kill": "kill $(lsof -t -i:3000)",
+    "kill": "if [ $(lsof -t -i:3000) ]; then kill $(lsof -t -i:3000); fi",
     "dev": "npm run kill && concurrently --kill-others \"npm run watch\" \"npm run tunnel\""
   },
   "dependencies": {
