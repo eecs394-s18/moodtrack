@@ -4,15 +4,17 @@ var Moods = require("../models/models").Moods;
 
 
 /* POST mood. */
-router.post('/', function(req, res, next) {
-
+router.post('/write', function(req, res, next) {
+  console.log("Received request", req.body) // debug
   Moods.query()
       .insert({
-        id: req.body.deviceID,
-        user_type: req.body.userType,
+        device_id: req.body.device_id,
+        user_type: req.body.user_type,
         location: req.body.location,
+        shift: req.body.shift,
         timestamp: req.body.timestamp,
-        mood: req.params.mood,
+        mood: req.body.mood,
+        comment: req.body.comment
       })
       .then(resp => {
         res.sendStatus(200);

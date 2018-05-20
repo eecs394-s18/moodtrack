@@ -4,3 +4,5 @@ server/node_modules/**/*
 /node_modules
 .vscode/
 .expo/**/*
+server/config/server.cert
+server/config/server.key
