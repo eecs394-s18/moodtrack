@@ -25,7 +25,11 @@ import urls from '../constants/ngrokUrls'
 import Prompt from 'react-native-prompt'
 
 /*
-Go to .node_modules/react-native-emoji/index.js and .node_modules/react-native-prompt/Prompt.js add
+Go to node_modules/react-native-prompt/Prompt.js and add
+import PropTypes from 'prop-types';
+and delete the PropTypes imported from 'react'
+
+Go to node_modules/react-native-emoji/index.js and add
 import PropTypes from 'prop-types';
 and change line 8 to
 name: PropTypes.string.isRequired,
@@ -80,6 +84,7 @@ export default class HomeScreen extends ResponsiveComponent {
       console.log(res, "Mood successfully submitted.");
       this.setState({
         submitted: 0,
+        comment: "",
         lastSubmitted: Moment.utc()
       })
     })
@@ -98,7 +103,7 @@ export default class HomeScreen extends ResponsiveComponent {
             <Title>IGNITE MoodTrack</Title>
           </Body>
         </Header>
-        //Try using KeyboardAvoidingView to push the text box into view. May be buggy.
+        {/*Try using KeyboardAvoidingView to push the text box into view. May be buggy.*/}
         <ScrollView contentContainerStyle={constStyles.view} keyboardDismissMode="interactive">
             <View style={style.subview}>
               <H1>Position</H1>
@@ -136,19 +141,19 @@ export default class HomeScreen extends ResponsiveComponent {
               <Text style={constStyles.emoji}><Emoji name="smile"/></Text>
             </View>
             <View>
-            <H1>Anything else?</H1>
+            {/* <H1>Anything else?</H1> */}
               <Prompt
               title="Comment"
-              placeholder=""
-              defaultValue={ this.state.text }
+              placeholder="optional"
+              defaultValue={ this.state.comment }
               visible={ this.state.promptVisible }
               onCancel={ () => this.setState({
                 promptVisible: false,
-                text: "" // clears text on cancel
+                comment: "" // clears text on cancel
               })}
               onSubmit={ (value) => this.setState({
                 promptVisible: false,
-                text: value
+                comment: value
               })}
               />
 
