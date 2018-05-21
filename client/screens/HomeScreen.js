@@ -82,14 +82,19 @@ export default class HomeScreen extends ResponsiveComponent {
     })
     .then(res => {
       console.log(res, "Mood successfully submitted.");
+      alert("Thanks! Have a great shift.")
       this.setState({
-        submitted: 0,
+        submitted: 2,
         comment: "",
         lastSubmitted: Moment.utc()
       })
+      setTimeout( () => {
+        this.setState({submitted: 0})
+      }, 60000)
     })
     .catch(err => {
       console.error(err, "Mood submission failed.")
+      alert("Oops! Something went wrong. Please try again.")
       this.setState({submitted: 0})
     })
   }
@@ -123,7 +128,7 @@ export default class HomeScreen extends ResponsiveComponent {
               </Segment>
             </View>
 
-            <View style={style.subview}>
+            <View style={style.subview} marginBottom="10%">
               <H1>Shift</H1>
               <Segment style={style.segment}>
                 <Button active={this.state.activeShift === "Day"} first onPress={() => {this.setActiveShift("Day")}}><Text>Day</Text></Button>
@@ -135,7 +140,7 @@ export default class HomeScreen extends ResponsiveComponent {
             <View style={{flexDirection:'row'}}>
               <Text style={constStyles.emoji}><Emoji name="disappointed"/></Text>
               <Slider
-                style={constStyles.slider} value={this.state.mood} step={1}
+                style={constStyles.slider} value={this.state.mood} step={1} value={50}
                 minimumValue={0} maximumValue={100} onSlidingComplete={(val) => this.setState({mood:val})}>
               </Slider>
               <Text style={constStyles.emoji}><Emoji name="smile"/></Text>
@@ -157,8 +162,8 @@ export default class HomeScreen extends ResponsiveComponent {
               })}
               />
 
-            <Button style={ constStyles.promptButton } block onPress={() => this.setState({ promptVisible: true })}>
-              <Text>Add Comment</Text>
+            <Button style={ constStyles.promptButton } block bordered onPress={() => this.setState({ promptVisible: true })}>
+              <Text>Add Comment <Emoji name="speech_balloon"/></Text>
             </Button>
           </View>
         </ScrollView>
@@ -219,7 +224,7 @@ const constStyles = StyleSheet.create({
   emoji: {
     fontSize: 50,
     marginVertical: 20,
-    marginHorizontal: 10
+    marginHorizontal: 5
   },
   slider: {
     flex: 1,
