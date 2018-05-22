@@ -10,9 +10,8 @@ const ops = { fields };
 router.get('/', function(req, res, next) {
   Moods.query()
   .then(data => {
-    // console.log(data) // debug - have a look to see what it looks like
     let csv = json2csv(data, ops)
-    console.log(csv) // debug - have a look to see what it looks like
+    // console.log(csv) // debug - have a look to see what it looks like
     res.setHeader('Content-disposition', 'attachment; filename=moods.csv');
     res.set('Content-Type', 'text/csv');
     res.status(200).send(csv);

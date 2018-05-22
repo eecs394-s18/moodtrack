@@ -165,9 +165,6 @@ export default class HomeScreen extends ResponsiveComponent {
               <Text>Add Comment <Emoji name="speech_balloon"/></Text>
             </Button>
           </View>
-          <Button block onPress={() => {this.sendData}}>
-            <Text>Get CSV</Text>
-          </Button>
         </ScrollView>
         <MoodButton submitted={this.state.submitted} onSubmit={this.onSubmit}></MoodButton>
       </Container>
