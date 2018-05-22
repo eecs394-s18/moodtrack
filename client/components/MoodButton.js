@@ -44,6 +44,4 @@ export default class MoodButton extends React.Component {
 }
 
 const styles = StyleSheet.create({
-	button: {
-	}
 })
