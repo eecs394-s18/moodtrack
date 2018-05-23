@@ -71,7 +71,6 @@ export default class HomeScreen extends ResponsiveComponent {
     console.log(data) // debug
 
     this.setState({submitted: 1}) // loading circle appears
-    // axios.post("http://localhost:3000/moods/write", {}, data)
     fetch(`${urls[1]}/moods/write`, {
       method: 'POST',
       headers: {
