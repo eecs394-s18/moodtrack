@@ -1,1 +1,1 @@
-export default ['https://c4d71f1a.ngrok.io','http://c4d71f1a.ngrok.io']
+export default ['http://b0721321.ngrok.io','https://b0721321.ngrok.io']

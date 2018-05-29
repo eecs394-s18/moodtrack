@@ -69,7 +69,7 @@ export default class HomeScreen extends ResponsiveComponent {
     })
 
     console.log(data) // debug
-
+	console.log(`Posting to ${urls[1]}/moods/write`) // debug
     this.setState({submitted: 1}) // loading circle appears
     fetch(`${urls[1]}/moods/write`, {
       method: 'POST',
@@ -80,19 +80,26 @@ export default class HomeScreen extends ResponsiveComponent {
       body: data
     })
     .then(res => {
-      console.log(res, "Mood successfully submitted.");
-      alert("Thanks! Have a great shift.")
-      this.setState({
-        submitted: 2,
-        comment: "",
-        lastSubmitted: Moment.utc()
-      })
-      setTimeout( () => {
+	  if (res.status >= 200 && res.status < 300) {
+        console.log(res.status, "Mood successfully submitted.");
+        alert("Thanks! Have a great shift.")
+        this.setState({
+          submitted: 2,
+          comment: "",
+          lastSubmitted: Moment.utc()
+        })
+        setTimeout( () => {
+          this.setState({submitted: 0})
+        }, 60000)
+	  }
+	  else {
+		console.log(res.status, "Mood submission failed.")
+        alert("Oops! Something went wrong. Please try again.")
         this.setState({submitted: 0})
-      }, 60000)
+	  }
     })
     .catch(err => {
-      console.error(err, "Mood submission failed.")
+      console.log(err, "Mood submission failed.")
       alert("Oops! Something went wrong. Please try again.")
       this.setState({submitted: 0})
     })
