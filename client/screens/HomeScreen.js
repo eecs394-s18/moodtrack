@@ -46,10 +46,11 @@ export default class HomeScreen extends ResponsiveComponent {
       activeJob: "Nurse",
       activeLocation: "North",
       activeShift: "Day",
-      mood: 3,
+      mood: 50,
       submitted: 0,
       comment: "",
-      lastSubmitted: 0
+      lastSubmitted: 0,
+      stress: 0
     };
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -65,7 +66,8 @@ export default class HomeScreen extends ResponsiveComponent {
       shift: this.state.activeShift,
       timestamp: Moment.utc(),
       mood: this.state.mood,
-      comment: this.state.comment
+      comment: this.state.comment,
+      stress: this.state.stress
     })
 
     console.log(data) // debug
@@ -150,6 +152,15 @@ export default class HomeScreen extends ResponsiveComponent {
                 minimumValue={0} maximumValue={100} onSlidingComplete={(val) => this.setState({mood:val})}>
               </Slider>
               <Text style={constStyles.emoji}><Emoji name="smile"/></Text>
+            </View>
+            <H1>How stressed are you?</H1>
+            <View style={{flexDirection:'row'}}>
+              <Text style={constStyles.emoji}><Emoji name="relieved"/></Text>
+              <Slider
+                style={constStyles.slider} value={this.state.mood} step={1} value={0}
+                minimumValue={0} maximumValue={100} onSlidingComplete={(val) => this.setState({stress:val})}>
+              </Slider>
+              <Text style={constStyles.emoji}><Emoji name="weary"/></Text>
             </View>
             <View>
             {/* <H1>Anything else?</H1> */}

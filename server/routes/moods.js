@@ -14,7 +14,8 @@ router.post('/write', function(req, res, next) {
         shift: req.body.shift,
         timestamp: req.body.timestamp,
         mood: req.body.mood,
-        comment: req.body.comment
+        comment: req.body.comment,
+        stress: req.body.stress
       })
       .then(resp => {
         res.sendStatus(200);
