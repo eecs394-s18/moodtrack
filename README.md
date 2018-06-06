@@ -65,3 +65,7 @@ In the app itself under the `/client` folder to match new the server configurati
 
 #### 6. Deploy the app to the App Stores:
 Follow the guide located on the expo website: [Deploying to App Stores](https://docs.expo.io/versions/latest/distribution/app-stores).
+
+
+## Front End Details
+This section details where the components of the application are stored for reference or modification. The HomeScreen component holds all of the user interface of the application and can be accessed at `client/screens/HomeScreen.js`. The submit button logic which handles disabled after a user logs their data can be accessed at `client/components/MoodButton.js`. 
