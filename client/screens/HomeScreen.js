@@ -71,7 +71,7 @@ export default class HomeScreen extends ResponsiveComponent {
     })
 
     console.log(data) // debug
-	console.log(`Posting to ${urls[1]}/moods/write`) // debug
+	  console.log(`Posting to ${urls[1]}/moods/write`) // debug
     this.setState({submitted: 1}) // loading circle appears
     fetch(`${urls[1]}/moods/write`, {
       method: 'POST',

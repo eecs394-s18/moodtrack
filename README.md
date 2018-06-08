@@ -108,5 +108,48 @@ Follow the guide located on the expo website: [Deploying to App Stores](https://
 
 TODO - Miki
 
+## Server API
+
+* `/` - GET
+    * Simple route to redirect to home page of server.
+    * Useful for checking if server is getting requests.
+* `/csv/` - GET
+    * Route to download a csv snapshot of the database.
+    * Simply paste into your browser to be prompted to download the file.
+* `/moods/write` - POST
+    * Used to post a mood log to the database.
+    * Example usage:
+```javascript
+...
+
+let data =  JSON.stringify({
+    device_id: Constants.deviceId,
+    user_type: this.state.activeJob,
+    location: this.state.activeLocation,
+    shift: this.state.activeShift,
+    timestamp: Moment.utc(),
+    mood: this.state.mood,
+    comment: this.state.comment,
+    stress: this.state.stress
+})
+
+fetch(`${server_host}/moods/write`, {
+    method: 'POST',
+    headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    },
+    body: data
+})
+.then(res => {
+    console.log("Success!");
+})
+.catch(err => {
+    console.log("Whoops!");
+})
+
+...
+```
+
 ## Front End Details
 This section details where the components of the application are stored for reference or modification. The HomeScreen component holds all of the user interface of the application and can be accessed at `client/screens/HomeScreen.js`. The submit button logic which handles disabled after a user logs their data can be accessed at `client/components/MoodButton.js`. 
