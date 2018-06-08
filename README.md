@@ -20,9 +20,12 @@ The database and dashboard are hosted on [AWS RDS](https://aws.amazon.com/rds/) 
 ```bash
 # install expo and main packages
 $ npm install exp --global
+
+# client dependencies
+$ cd client
 $ npm install # or yarn install
 
-# server dependancies
+# server dependencies
 $ cd server
 $ npm install # or yarn install
 ```
