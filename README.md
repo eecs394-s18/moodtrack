@@ -15,6 +15,16 @@ This project has two parts:
 
 The database and dashboard are hosted on [AWS RDS](https://aws.amazon.com/rds/) and [AWS Quicksight](https://aws.amazon.com/quicksight/) respectively. The setup instructions are given below.
 
+
+### Analytics (via Amazon Quicksight)
+A fully flexible analytics dashboard was setup using Amazon Quicksight. The dashboard allows to easily build graphs and figures for any data hosted under an Amazon RDS database.
+
+![Summary Table](https://i.gyazo.com/1c52efc0c8ca9bc6234240d1eeb771bf.png?raw=true "Summary Table")
+![Graph](https://i.gyazo.com/ebe72fb8f4ea5fadbdfb2b7797bb95ef.png?raw=true "Graph")
+
+
+
+
 ## Developer Setup
 ### Install
 ```bash
@@ -108,8 +118,7 @@ In the app itself under the `/client` folder to match new the server configurati
 Follow the guide located on the expo website: [Deploying to App Stores](https://docs.expo.io/versions/latest/distribution/app-stores).
 
 ### Dashboard Setup
-
-TODO - Miki
+Setting up a Quicksight dashboard is as easy: simply create a new Quicksight instance and choose the data source (your existing RDS database). For detailed instructions, follow [Setting up Quicksight](https://docs.aws.amazon.com/quicksight/latest/user/setup-new-quicksight-account.html)
 
 ## Server API
 
