@@ -19,7 +19,12 @@ The database and dashboard are hosted on [AWS RDS](https://aws.amazon.com/rds/) 
 ### Analytics (via Amazon Quicksight)
 A fully flexible analytics dashboard was setup using Amazon Quicksight. The dashboard allows to easily build graphs and figures for any data hosted under an Amazon RDS database.
 
+#### Summary Table
+Averages of moods between shifts and positions by day (time can be changed to hourly \ daily \ monthly \ yearly).
 ![Summary Table](https://i.gyazo.com/1c52efc0c8ca9bc6234240d1eeb771bf.png?raw=true "Summary Table")
+
+#### Graph
+Averages of moods by positions (time can be changed to hourly \ daily \ monthly \ yearly)
 ![Graph](https://i.gyazo.com/ebe72fb8f4ea5fadbdfb2b7797bb95ef.png?raw=true "Graph")
 
 
