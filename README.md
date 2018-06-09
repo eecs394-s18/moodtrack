@@ -123,7 +123,7 @@ In the app itself under the `/client` folder to match new the server configurati
 Follow the guide located on the expo website: [Deploying to App Stores](https://docs.expo.io/versions/latest/distribution/app-stores).
 
 ### Dashboard Setup
-Setting up a Quicksight dashboard is as easy: simply create a new Quicksight instance and choose the data source (your existing RDS database). For detailed instructions, follow [Setting up Quicksight](https://docs.aws.amazon.com/quicksight/latest/user/setup-new-quicksight-account.html)
+Setting up a Quicksight dashboard is easy: simply create a new Quicksight instance on the AWS console and choose your relevant data source (your existing RDS database). For detailed instructions, follow [Setting up Quicksight](https://docs.aws.amazon.com/quicksight/latest/user/setup-new-quicksight-account.html)
 
 ## Server API
 
